@@ -40,7 +40,7 @@ const Sidebar = () => {
                 </ul>
                 <hr />
                 <ul className="main-menu px-0 pb-0">
-                    <a href="#" className="list-group-item list-group-action text-decoration-none font-weight-bold" style={{ color: "#003048fa" }}>
+                    <a href="/admin" className="list-group-item list-group-action text-decoration-none font-weight-bold" style={{ color: "#003048fa" }}>
                         <i className="bi bi-speedometer2 mt-2 mr-2"></i> Dashboard
                     </a>
 
@@ -50,7 +50,7 @@ const Sidebar = () => {
                     </a>
                     {menu ?
                         <div id="Menu">
-                            <a href="/daftarMenu" className="list-group-item text-decoration-none" style={{ color: "#003048fa" }}> Daftar Menu</a>
+                            <a href="/listMenu" className="list-group-item text-decoration-none" style={{ color: "#003048fa" }}> Daftar Menu</a>
                         </div> : null
                     }
 
@@ -60,7 +60,7 @@ const Sidebar = () => {
                     </a>
                     {pengaturan ?
                         <div id="Pengaturan">
-                            <input type={'button'} onClick={handleLogout} className="list-group-item text-decoration-none" style={{ color: "#000000" }}> Logout</input>
+                            <input type={'button'} onClick={() => handleLogout} className="list-group-item text-decoration-none" style={{ color: "#000000" }} value={"Logout"} />
                         </div> : null
                     }
 

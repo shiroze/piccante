@@ -26,3 +26,20 @@ export const getAllMenuByJenis = async (req, res) => {
     }
 }
 
+export const deleteMenu = async (req, res) => {
+    try {
+        await Menu.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.json({
+            'message': 'Menu Deleted'
+        })
+    } catch (error) {
+        res.json({
+            message: error.message
+        })
+    }
+}
+

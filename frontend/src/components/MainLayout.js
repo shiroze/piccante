@@ -8,6 +8,8 @@ import {
 import { LoginContext } from './Context/LoginContext';
 
 import AdminPage from './Page/AdminPage';
+import ListBookingPage from './Page/ListBookingPage';
+import ListDaftarMenu from './Page/ListDaftarMenu';
 import LoginPage from './Page/LoginPage';
 import MainPage from './Page/MainPage';
 import DaftarMenu from './Page/DaftarMenu';
@@ -65,7 +67,8 @@ const MainLayout = () => {
                 <Route path="/admin" element={<PrivateRoute><AdminPage /></PrivateRoute>} />
                 <Route path="/login" element={<LoginRoute><LoginPage /></LoginRoute>} />
                 <Route path='/daftarmenu' element={<DaftarMenu/>} />
-                <Route path='/listBooking' element={<DaftarMenu/>} />
+                <Route path='/listMenu' element={<ListDaftarMenu/>} />
+                <Route path='/listBooking' element={<ListBookingPage/>} />
                 <Route path='/about' element={<About/>} />
                 <Route path='/booking' element={<BookingTable/>} />
                 <Route path='/cart' element={<CartPage/>} />

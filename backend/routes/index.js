@@ -1,7 +1,7 @@
 import express from 'express'
-import { getAllBooking, createBooking } from '../controllers/Booking.js';
+import { getAllBooking, createBooking, deleteBooking } from '../controllers/Booking.js';
 import { getAllJenis } from '../controllers/Jenis.js';
-import { getAllMenu, getAllMenuByJenis } from '../controllers/Menu.js';
+import { getAllMenu, getAllMenuByJenis, deleteMenu } from '../controllers/Menu.js';
 import { getOrderId, createOrder, deleteOrder, getAllOrder, getOneOrderById, updateOrder } from '../controllers/Orders.js';
 
 import { getAllUser, getUserById } from '../controllers/Users.js'
@@ -14,6 +14,7 @@ router.get('/login', getUserById)
 // Booking
 router.get('/booking', getAllBooking)
 router.post('/booking', createBooking)
+router.delete('/booking/:id', deleteBooking)
 
 // Orders
 router.get('/genorder', getOrderId)
@@ -29,5 +30,6 @@ router.get('/jenis', getAllJenis)
 // Menu
 router.get('/menu', getAllMenu)
 router.get('/menu/:id', getAllMenuByJenis)
+router.delete('/menu/:id', deleteMenu)
 
 export default router

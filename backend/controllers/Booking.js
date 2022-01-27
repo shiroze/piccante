@@ -25,3 +25,20 @@ export const createBooking = async (req, res) => {
       })
   }
 }
+
+export const deleteBooking = async (req, res) => {
+    try {
+        await Booking.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.json({
+            'message': 'Booking Deleted'
+        })
+    } catch (error) {
+        res.json({
+            message: error.message
+        })
+    }
+}
