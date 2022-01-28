@@ -1,7 +1,7 @@
 import React from 'react'
 
 const CardMenu = (props) => {
-    console.log(props);
+    // console.log(props);
     return (
         <div className={`col-sm-6 col-lg-4 all ${props.jenis}`}>
             <div className="box">

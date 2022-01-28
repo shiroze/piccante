@@ -1,12 +1,20 @@
-import React, { useContext, useState, useEffect, useLayoutEffect } from 'react';
+import React, { useContext, useState, useRef, useEffect, useLayoutEffect } from 'react';
 import CardMenu from './CardMenu';
 import { jenisMenu, daftarMenu } from '../data-menu';
 import { withCookies, useCookies } from 'react-cookie';
 import swal from 'sweetalert';
 import { LoginContext } from './Context/LoginContext';
 import axios from 'axios';
+import Isotope from 'isotope-layout';
 
 const FoodSection = (props) => {
+  // const isotope = React.useRef(Isotope);
+  const isoRef = useRef(Isotope);
+  const [isotope, setIsotope] = useState(null);
+  
+  // store the filter keyword in a state
+  const [filterKey, setFilterKey] = React.useState('*');
+
   const [cookies, setCookies] = useCookies(['cart']);
   const [auth, setAuth] = useContext(LoginContext);
 
@@ -27,14 +35,14 @@ const FoodSection = (props) => {
     const toggleActive = (index) => {
         setJenis({ ...jenis, activeMenu: jenis.objectMenu[index].id })
 
-        if (index === 0) {
-            setMenu([...daftarMenu])
-        } else {
-            const filtered = daftarMenu.filter((item) => {
-                return item.jenis === jenis.objectMenu[index].jenis
-            })
-            setMenu([...filtered])
-        }
+        // if (index === 0) {
+        //     setMenu([...daftarMenu])
+        // } else {
+        //     const filtered = daftarMenu.filter((item) => {
+        //         return item.jenis === jenis.objectMenu[index].jenis
+        //     })
+        //     setMenu([...filtered])
+        // }
     };
 
     const toggleStyle = (index) => {
@@ -79,8 +87,22 @@ const FoodSection = (props) => {
     };
 
     useEffect(() => {
-        getAllMenus()
-    }, []) // [] untuk agar dijalankan hanya saat unmounted
+      getAllMenus();
+
+      console.log(isotope);
+      
+      if (isotope === null) {
+        setIsotope(isoRef.current);
+      }
+
+      // if (isotope) {
+      //   console.log(isotope.current);
+      //   isotope.reloadItems();
+      // }
+      // else{
+      //   setIsotope(new Isotope(isoRef.current));
+      // }
+    }, [isotope]);
 
     useLayoutEffect(() => {
       if(cookies.cart) {
@@ -91,6 +113,25 @@ const FoodSection = (props) => {
         // console.log(cartArr);
       }
     }, [cookies]);
+
+    const handleFilterKeyChange = key => () => {
+      if (isotope.current === undefined) {
+        isotope.current = new Isotope('.grid', {
+          itemSelector: '.all',
+          layoutMode: 'fitRows',
+        });
+      }
+
+      let jenisIndex = jenisMenu.find(element => element.jenis === key);
+
+      toggleActive(jenisIndex.id);
+
+      if(key === 'All') {
+        isotope.current.arrange({filter: `*`})
+      } else {
+        isotope.current.arrange({filter: `.${key}`})
+      }
+    };
 
     return (
         <div className="container mt-5">
@@ -104,29 +145,20 @@ const FoodSection = (props) => {
 
                     <ul className="filters-menu">
                         {jenis.objectMenu.map((item, index) => {
-                            if (index === 0) {
-                                return (
-                                    <li className={toggleStyle(index)} onClick={() => { toggleActive(index) }} key={index}>{item.jenis}</li>
-                                )
-                            }
-                            else {
-                                return (
-                                    <li className={toggleStyle(index)} onClick={() => { toggleActive(index) }} key={index}>{item.jenis}</li>
-                                )
-                            }
-
+                          return (
+                            <li className={toggleStyle(index)} onClick={handleFilterKeyChange(`${item.jenis}`)} key={index}>{item.jenis}</li>
+                          )
                         })}
-
                     </ul>
 
                     <div className="filters-content">
-                        <div className="row grid">
-                            {menu.map((item, index) => {
-                                return (
-                                    <CardMenu jenis={item.jenis} nama={item.nama} deskripsi={item.deskripsi} harga={item.harga} image={index + 1} onClick={() => addToCart(item)} key={index} auth={auth} />
-                                )
-                            })}
-                        </div>
+                      <div className="row grid" ref={isoRef}>
+                          {menu.map((item, index) => {
+                              return (
+                                <CardMenu jenis={jenis.objectMenu[item.jenis].jenis} nama={item.nama} deskripsi={item.deskripsi} harga={item.harga} image={index + 1} onClick={() => addToCart(item)} key={index} auth={auth} />
+                              )
+                          })}
+                      </div>
                     </div>
 
                     <div className="btn-box">
@@ -139,5 +171,25 @@ const FoodSection = (props) => {
         </div>
     )
 }
+
+// $(window).on('load', function () {
+//   $('.filters-menu li').click(function () {
+//     $('.filters-menu li').removeClass('active');
+//     $(this).addClass('active');
+
+//     var data = $(this).attr('data-filter');
+//     $grid.isotope({
+//       filter: data
+//     })
+//   });
+
+//   var $grid = $(".grid").isotope({
+//     itemSelector: ".all",
+//     percentPosition: false,
+//     masonry: {
+//       columnWidth: ".all"
+//     }
+//   })
+// });
 
 export default withCookies(FoodSection);
