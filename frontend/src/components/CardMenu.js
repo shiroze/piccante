@@ -7,7 +7,7 @@ const CardMenu = (props) => {
             <div className="box">
                 <div>
                     <div className="img-box">
-                        <img src={`/img/f${props.image}.png`} alt={`${props.nama}`} />
+                        <img src={`http://localhost:5000/images/${props.image}`} alt={`${props.nama}`} />
                     </div>
                     <div className="detail-box">
                         <h5>{props.nama}</h5>

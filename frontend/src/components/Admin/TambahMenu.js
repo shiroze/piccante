@@ -20,22 +20,24 @@ const MenuForm = () => {
       // console.log("Key" + e.target.name);
       updateFormData({
         ...formData,
-  
+        
         // Trimming any whitespace
-        [e.target.name]: e.target.name === 'gambar' ? e.target.files[0] : e.target.value.trim()
+        [e.target.name]: e.target.name === 'gambar' ? e.target.files[0] : e.target.value.trim(),
       });
     };
 
     const createMenu = async (e) => {
       e.preventDefault();
       
-      const config = {
-          // headers: {
-          //   'content-type': 'multipart/form-data'
-          // }
-      };
+      // Create an object of formData
+      const formData2 = new FormData();
+      for (var key in formData) {
+        // console.log(formData[key]);
+        formData2.append(key, formData[key]);
+      }
+      
       try {
-          await axios.post('http://localhost:5000/api/menu', {formData}, config)
+          await axios.post('http://localhost:5000/api/menu', formData2)
           .then(res => {
             console.log(res);
             // history('/listMenu');
@@ -61,17 +63,15 @@ const MenuForm = () => {
                                     <h3 className="box-title ml-1 text-info">Daftar Menu</h3>
                                 </div>
                                 <div className="box-body">
-                                    <form method="POST" encType="multipart/form-data" onSubmit={createMenu}>
+                                    <form encType="multipart/form-data" onSubmit={createMenu}>
                                       <div className="form-group">
                                         <label>Jenis Makanan</label>
-                                        <select className="form-control" name="jenis" onChange={handleChange}>
-                                          <option value="0" disabled selected>Pilih Jenis</option>
-                                          {jenisMenu.map((value, index) => {
-                                            if (value.id !== 0) {
-                                              return (
-                                                <option value={value.id} key={index}>{value.jenis}</option>
-                                              )
-                                            }
+                                        <select className="form-control" name="jenis" onChange={handleChange} defaultValue={-1}>
+                                          <option value="-1" disabled>Pilih Jenis</option>
+                                          {jenisMenu.filter(element => element.id !== 0).map((value, index) => {
+                                            return (
+                                              <option value={value.id} key={index}>{value.jenis}</option>
+                                            )
                                           })}
                                         </select>
                                       </div>

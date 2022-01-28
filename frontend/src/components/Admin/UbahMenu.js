@@ -35,13 +35,15 @@ const MenuForm = () => {
     const updateMenu = async (e) => {
       e.preventDefault();
 
-      const config = {
-          // headers: {
-          //   'content-type': 'multipart/form-data'
-          // }
-      };
+      // Create an object of formData
+      const formData2 = new FormData();
+      for (var key in formData) {
+        // console.log(formData[key]);
+        formData2.append(key, formData[key]);
+      }
+
       try {
-          await axios.patch(`http://localhost:5000/api/menu/${params.id}`, {formData}, config)
+          await axios.patch(`http://localhost:5000/api/menu/${params.id}`, formData2)
           .then(res => {
             history('/listMenu');
           })
@@ -66,17 +68,15 @@ const MenuForm = () => {
                                     <h3 className="box-title ml-1 text-info">Ubah Menu</h3>
                                 </div>
                                 <div className="box-body">
-                                    <form method="POST" onSubmit={updateMenu}>
+                                    <form encType="multipart/form-data" onSubmit={updateMenu}>
                                       <div className="form-group">
                                         <label>Jenis Makanan</label>
                                         <select className="form-control" name="jenis" onChange={handleChange} defaultValue={formData !== undefined && formData.jenis}>
-                                          <option value="0" disabled selected>Pilih Jenis</option>
-                                          {jenisMenu.map((value, index) => {
-                                            if (value.id !== 0) {
-                                              return (
-                                                <option value={value.id} key={index}>{value.jenis}</option>
-                                              )
-                                            }
+                                          <option value="0" disabled>Pilih Jenis</option>
+                                          {jenisMenu.filter(element => element.id !== 0).map((value, index) => {
+                                            return (
+                                              <option value={value.id} key={index}>{value.jenis}</option>
+                                            )
                                           })}
                                         </select>
                                       </div>

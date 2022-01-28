@@ -30,19 +30,11 @@ const FoodSection = (props) => {
     const getAllMenus = async () => {
         const response = await axios.get('http://localhost:5000/api/menu');
         setMenu(response.data);
+        console.log(response.data)
     }
 
     const toggleActive = (index) => {
         setJenis({ ...jenis, activeMenu: jenis.objectMenu[index].id })
-
-        // if (index === 0) {
-        //     setMenu([...daftarMenu])
-        // } else {
-        //     const filtered = daftarMenu.filter((item) => {
-        //         return item.jenis === jenis.objectMenu[index].jenis
-        //     })
-        //     setMenu([...filtered])
-        // }
     };
 
     const toggleStyle = (index) => {
@@ -155,7 +147,7 @@ const FoodSection = (props) => {
                       <div className="row grid" ref={isoRef}>
                           {menu.map((item, index) => {
                               return (
-                                <CardMenu jenis={jenis.objectMenu[item.jenis].jenis} nama={item.nama} deskripsi={item.deskripsi} harga={item.harga} image={index + 1} onClick={() => addToCart(item)} key={index} auth={auth} />
+                                <CardMenu jenis={jenis.objectMenu[item.jenis].jenis} nama={item.nama} deskripsi={item.deskripsi} harga={item.harga} image={item.gambar} onClick={() => addToCart(item)} key={index} auth={auth} />
                               )
                           })}
                       </div>

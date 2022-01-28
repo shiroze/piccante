@@ -16,6 +16,14 @@ app.use(express.json())
 // app.use(express.json())
 app.use('/api/', userRoutes)
 
-app.listen(5000, () => {
-    console.log("running at port 5000")
+// Function to serve all static files
+// inside public directory.
+app.use('/images', express.static('public/images'));
+
+// Defining port number
+const PORT = 5000;    
+
+// Server setup
+app.listen(PORT, () => {
+  console.log(`Running server on PORT ${PORT}...`);
 })

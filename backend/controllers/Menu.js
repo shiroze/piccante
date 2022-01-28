@@ -1,21 +1,6 @@
 import multer from "multer";
 import Menu from "../models/menuModel.js";
 
-// var storageFile = multer.diskStorage({
-//   //buat config file storage 
-//   destination : (req, file, cb)=>{
-//     //set folder sebagai destinasi upload
-//     cb(null, './public/images') 
-//   },
-//   filename : (req, file, cb)=>{ 
-//     //set nama file setelah diupload 
-//     console.log("FileName", file);
-//     cb(null, file.originalname)
-//   } 
-// });
-
-// var upload = multer({storage : storageFile}).single('gambar'); //buat object upload
-
 export const getAllMenu = async (req, res) => {
     try {
         const allMenu = await Menu.findAll()
@@ -59,18 +44,12 @@ export const getOneMenuById = async (req, res) => {
 
 export const createMenu = async (req, res) => {
     try {
-        // upload(req,res,(err) =>{
-        //     if(err) console.log(err);
-
-        //     console.log(req.file);
-        // });
-
-        Menu.create({
-          jenis: req.body.formData.jenis,
-          nama: req.body.formData.nama,
-          deskripsi: req.body.formData.deskripsi,
-          harga: req.body.formData.harga,
-          // gambar: req.file.filename,
+        await Menu.create({
+          jenis: req.body.jenis,
+          nama: req.body.nama,
+          deskripsi: req.body.deskripsi,
+          harga: req.body.harga,
+          gambar: req.file.filename,
         });
 
         res.json({
@@ -86,11 +65,11 @@ export const createMenu = async (req, res) => {
 export const updateMenu = async (req, res) => {
   try {
     await Menu.update({
-      jenis: req.body.formData.jenis,
-      nama: req.body.formData.nama,
-      deskripsi: req.body.formData.deskripsi,
-      harga: req.body.formData.harga,
-      // gambar: req.file.filename,
+      jenis: req.body.jenis,
+      nama: req.body.nama,
+      deskripsi: req.body.deskripsi,
+      harga: req.body.harga,
+      gambar: req.file.filename,
     }, {
       where: {
           id: req.params.id

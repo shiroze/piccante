@@ -1,41 +1,26 @@
 import express from 'express';
-import bodyParser from 'body-parser';
+import multer from "multer";
+
 import { getAllBooking, createBooking, deleteBooking } from '../controllers/Booking.js';
 import { getAllJenis } from '../controllers/Jenis.js';
 import { getAllMenu, getAllMenuByJenis, getOneMenuById, createMenu, updateMenu, deleteMenu } from '../controllers/Menu.js';
 import { getOrderId, createOrder, deleteOrder, getAllOrder, getOneOrderById, updateOrder } from '../controllers/Orders.js';
-
 import { getAllUser, getUserById } from '../controllers/Users.js'
 
-import multer from "multer";
 
-const router = express.Router();
-
-// router.use(bodyParser.urlencoded({ extended: true })); 
-// router.use(bodyParser.json());
-// router.use((req, res, next)=>{
-//   res.setHeader('Access-Control-Allow-Origin', '*'); res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-//   if (req.method === "OPTIONS") {
-//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested- With, Content-Type, Accept, Authorization');
-//     return res.status(200).json({}); 
-//   }
-//   next();
-// });
-
-var storageFile = multer.diskStorage({
-  //buat config file storage 
-  destination : (req, file, cb)=>{
-    //set folder sebagai destinasi upload
-    cb(null, './public/images') 
-  },
-  filename : (req, file, cb)=>{ 
-    //set nama file setelah diupload
+const storageFile = multer.diskStorage({
+  // destination: (req, file, cb) => {
+  //   cb(null, "./public/images");
+  // },
+  destination: "./public/images",
+  filename: (req, file, cb) => {
     cb(null, file.originalname)
-  } 
+  }
 });
 
-var upload = multer({storage : storageFile}).single('gambar'); //buat object upload
+const upload = multer({storage : storageFile}).single('gambar'); //buat object upload
 
+const router = express.Router();
 
 // router.get('/', getAllUser)
 router.get('/login', getUserById)
