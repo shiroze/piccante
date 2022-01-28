@@ -79,18 +79,18 @@ CREATE TABLE IF NOT EXISTS `menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- Dumping data for table piccante.menu: ~9 rows (approximately)
+-- Dumping data for table piccante.menu: ~10 rows (approximately)
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
 INSERT INTO `menu` (`id`, `jenis`, `nama`, `deskripsi`, `harga`, `gambar`, `create_time`, `update_time`) VALUES
 	(1, 1, 'Burger Beef Alfredo', 'Burger dengan daging sapi saos creamy keju Alfredo khas Italia, ditambah dengan keju dan scrambled egg istimewa, yang disajikan dalam setangkup roti bertabur wijen.', 29000, 'f1.png', NULL, NULL),
 	(2, 2, 'Pizza Sicilian', 'Pizza Sicilian memiliki dasar roti yang lembut dan kenyal. Kemudian diberi saos tanpa daging yang terbuat dari tomat, bawang, rempah-rempah dan ditaburin parutan keju.', 100000, 'f2.png', NULL, NULL),
-	(3, 2, 'Pizza Neapolitan', 'Pizza ini mirip dengan Margherita karena menggunakan tomat dan keju. Tapi Pizza Neapolitan ini memiliki porsi keju mozarella jauh lebih banyak dan penggunaan daun basilnya juga lebih sedikit.', 224000, NULL, NULL, NULL),
-	(4, 3, 'Tortellini Pasta', 'Tortellini adalah pasta berbentuk cincin yang biasanya diisi dengan keju atau daging. Pasta ini disajikan dalam sup dengan isi daging sapi, ayam, atau keduanya', 39000, NULL, NULL, NULL),
-	(5, 4, 'French Fries Bolognese', 'French Fries Bolognese merupakan cemilan yang cocok untuk dinikmati bersama karna terbuat dari kentang bermutu dan diberi saos bolognese khas italia secara terpisah.', 14900, NULL, NULL, NULL),
-	(6, 2, 'Pizza Margherita', 'Pizza Margherita merupakan salah satu pizza klasik yang terlezat dari Italia. Pizza Margherita hanya memiliki tiga topping utama, yakni keju mozarella, tomat dan daun basil. ', 254000, NULL, NULL, NULL),
-	(7, 1, 'Burger Angus Colorado', 'Burger Angus Colorado disajikan dengan isi daging ayam yang dipadu saos pedas khas Italia. Pedasnya semakin nikmat dengan tambahan keju cheddar di dalamnya dan ditaburin abon ayam.', 23999, NULL, NULL, NULL),
-	(8, 1, 'Burger Bolognese', 'Burger Bolognese disajikan dengan isi daging sapi yang dipadu saos tomat pasta bolognese khas Italia. Manisnya semakin nikmat dengan tambahan potongan halus daging sapi dan keju cheddar di dalamnya.', 26999, NULL, NULL, NULL),
-	(9, 3, 'Lasagna Pasta', 'Lasagna adalah jenis pasta lebar dan rata yang biasanya dilapisi dengan saos dan keju untuk membentuk hidangan casserole (hidangan panas) populer dengan nama yang sama. ', 44999, NULL, NULL, NULL),
+	(3, 2, 'Pizza Neapolitan', 'Pizza ini mirip dengan Margherita karena menggunakan tomat dan keju. Tapi Pizza Neapolitan ini memiliki porsi keju mozarella jauh lebih banyak dan penggunaan daun basilnya juga lebih sedikit.', 224000, 'f3.png', NULL, NULL),
+	(4, 3, 'Tortellini Pasta', 'Tortellini adalah pasta berbentuk cincin yang biasanya diisi dengan keju atau daging. Pasta ini disajikan dalam sup dengan isi daging sapi, ayam, atau keduanya', 39000, 'f4.png', NULL, NULL),
+	(5, 4, 'French Fries Bolognese', 'French Fries Bolognese merupakan cemilan yang cocok untuk dinikmati bersama karna terbuat dari kentang bermutu dan diberi saos bolognese khas italia secara terpisah.', 14900, 'f5.png', NULL, NULL),
+	(6, 2, 'Pizza Margherita', 'Pizza Margherita merupakan salah satu pizza klasik yang terlezat dari Italia. Pizza Margherita hanya memiliki tiga topping utama, yakni keju mozarella, tomat dan daun basil. ', 254000, 'f6.png', NULL, NULL),
+	(7, 1, 'Burger Angus Colorado', 'Burger Angus Colorado disajikan dengan isi daging ayam yang dipadu saos pedas khas Italia. Pedasnya semakin nikmat dengan tambahan keju cheddar di dalamnya dan ditaburin abon ayam.', 23999, 'f7.png', NULL, NULL),
+	(8, 1, 'Burger Bolognese', 'Burger Bolognese disajikan dengan isi daging sapi yang dipadu saos tomat pasta bolognese khas Italia. Manisnya semakin nikmat dengan tambahan potongan halus daging sapi dan keju cheddar di dalamnya.', 26999, 'f8.png', NULL, NULL),
+	(9, 3, 'Lasagna Pasta', 'Lasagna adalah jenis pasta lebar dan rata yang biasanya dilapisi dengan saos dan keju untuk membentuk hidangan casserole (hidangan panas) populer dengan nama yang sama. ', 44999, 'f9.png', NULL, NULL),
 	(10, 2, 'PIzza ABC', 'ABC to P to Z to A', 110000, 'f1.png', NULL, NULL);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 
