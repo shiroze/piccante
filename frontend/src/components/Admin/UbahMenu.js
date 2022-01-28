@@ -34,17 +34,16 @@ const MenuForm = () => {
 
     const updateMenu = async (e) => {
       e.preventDefault();
-      
+
       const config = {
           // headers: {
           //   'content-type': 'multipart/form-data'
           // }
       };
       try {
-          await axios.patch('http://localhost:5000/api/menu', {formData}, config)
+          await axios.patch(`http://localhost:5000/api/menu/${params.id}`, {formData}, config)
           .then(res => {
-            console.log(res);
-            // history('/listMenu');
+            history('/listMenu');
           })
       } catch (error) {
           console.log('Gagal');
