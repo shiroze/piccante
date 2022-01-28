@@ -45,6 +45,7 @@ const MenuForm = () => {
       try {
           await axios.patch(`http://localhost:5000/api/menu/${params.id}`, formData2)
           .then(res => {
+            swal("Success", "Ubah item berhasil", "success");
             history('/listMenu');
           })
       } catch (error) {

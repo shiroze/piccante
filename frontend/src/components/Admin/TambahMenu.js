@@ -39,8 +39,9 @@ const MenuForm = () => {
       try {
           await axios.post('http://localhost:5000/api/menu', formData2)
           .then(res => {
-            console.log(res);
-            // history('/listMenu');
+            // console.log(res);
+            swal("Success", "Tambah item berhasil", "success");
+            history('/listMenu');
           })
       } catch (error) {
           console.log('Gagal');
