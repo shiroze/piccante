@@ -31,7 +31,7 @@ const Sidebar = () => {
       swal("Success", "Anda telah Logout", "success");
 
       setTimeout(() => {
-        window.location.href="/login";
+        window.location.href="/";
       }, 2000);
     }
 

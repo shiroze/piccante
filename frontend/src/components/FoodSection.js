@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useLayoutEffect } from 'react';
 import CardMenu from './CardMenu';
 import { jenisMenu, daftarMenu } from '../data-menu';
 import { withCookies, useCookies } from 'react-cookie';
 import swal from 'sweetalert';
 import { LoginContext } from './Context/LoginContext';
+import axios from 'axios';
 
 const FoodSection = (props) => {
   const [cookies, setCookies] = useCookies(['cart']);
@@ -14,9 +15,14 @@ const FoodSection = (props) => {
         objectMenu: jenisMenu
     });
 
-    const [menu, setMenu] = useState(daftarMenu);
+    const [menu, setMenu] = useState([]);
 
     const [cart, setCart] = useState([]);
+
+    const getAllMenus = async () => {
+        const response = await axios.get('http://localhost:5000/api/menu');
+        setMenu(response.data);
+    }
 
     const toggleActive = (index) => {
         setJenis({ ...jenis, activeMenu: jenis.objectMenu[index].id })
@@ -72,7 +78,11 @@ const FoodSection = (props) => {
       swal("Success!", item.nama + " Berhasil masuk keranjang", "success");
     };
 
-    React.useLayoutEffect(() => {
+    useEffect(() => {
+        getAllMenus()
+    }, []) // [] untuk agar dijalankan hanya saat unmounted
+
+    useLayoutEffect(() => {
       if(cookies.cart) {
         let cartArr = cookies.cart;
 
