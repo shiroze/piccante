@@ -1,29 +1,38 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { ToggleButton } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-
+import swal from 'sweetalert';
+import { LoginContext } from '../Context/LoginContext';
 
 const Sidebar = () => {
-    const history = useNavigate();
+    const [auth, setAuth] = useContext(LoginContext);
 
     const [menu, setMenu] = useState(false)
     const [pengaturan, setPengaturan] = useState(false)
     const [transasksi, setTransaksi] = useState(false)
 
-    const toggleMenu = () => {
+    const toggleMenu = (e) => {
+        e.preventDefault();
         setMenu(!menu)
     }
 
-    const togglePengaturan = () => {
+    const togglePengaturan = (e) => {
+        e.preventDefault();
         setPengaturan(!pengaturan)
     }
 
     const handleLogout = (e) => {
       e.preventDefault();
 
-      localStorage.removeItem('authenticated');
+      console.log(!auth);
 
-      history('/login');
+      localStorage.setItem('authenticated', !auth);
+
+      swal("Success", "Anda telah Logout", "success");
+
+      setTimeout(() => {
+        window.location.href="/login";
+      }, 2000);
     }
 
     return (
@@ -60,7 +69,9 @@ const Sidebar = () => {
                     </a>
                     {pengaturan ?
                         <div id="Pengaturan">
-                            <input type={'button'} onClick={() => handleLogout} className="list-group-item text-decoration-none" style={{ color: "#000000" }} value={"Logout"} />
+                          <form onSubmit={handleLogout}>
+                            <input type={'submit'} className="list-group-item text-decoration-none" style={{ color: "#000000" }} value={"Logout"} />
+                          </form>
                         </div> : null
                     }
 

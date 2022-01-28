@@ -23,7 +23,9 @@ import RegisterPage from './Page/RegisterPage';
 const PrivateRoute = ({children}) => {
     const [auth, setAuth] = useContext(LoginContext);
 
-    if (auth === false){
+    console.log("Private Route", auth, children);
+
+    if (!auth){
         return <Navigate to = "/login"/>
     } else {
         return children
@@ -33,17 +35,9 @@ const PrivateRoute = ({children}) => {
 const LoginRoute = ({children}) => {
     const [auth, setAuth] = useContext(LoginContext);
 
-    if (auth === false){
-        return children
-    } else {
-        return <Navigate to = "/admin"/>
-    }
-}
+    console.log("Login Route", auth, children);
 
-const GuestRoute = ({children}) => {
-    const [auth, setAuth] = useContext(LoginContext);
-
-    if (auth === false){
+    if (!auth){
         return children
     } else {
         return <Navigate to = "/admin"/>
@@ -63,12 +57,12 @@ const MainLayout = () => {
     return (
         <Router>
             <Routes>
-                <Route exact path="/" element={<GuestRoute><MainPage /></GuestRoute>} />
+                <Route exact path="/" element={<LoginRoute><MainPage /></LoginRoute>} />
                 <Route path="/admin" element={<PrivateRoute><AdminPage /></PrivateRoute>} />
                 <Route path="/login" element={<LoginRoute><LoginPage /></LoginRoute>} />
                 <Route path='/daftarmenu' element={<DaftarMenu/>} />
-                <Route path='/listMenu' element={<ListDaftarMenu/>} />
-                <Route path='/listBooking' element={<ListBookingPage/>} />
+                <Route path='/listMenu' element={<PrivateRoute><ListDaftarMenu/></PrivateRoute>} />
+                <Route path='/listBooking' element={<PrivateRoute><ListBookingPage/></PrivateRoute>} />
                 <Route path='/about' element={<About/>} />
                 <Route path='/booking' element={<BookingTable/>} />
                 <Route path='/cart' element={<CartPage/>} />
