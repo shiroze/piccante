@@ -64,7 +64,7 @@ const MainLayout = () => {
                 <Route path="/login" element={<LoginRoute><LoginPage /></LoginRoute>} />
                 <Route path='/daftarmenu' element={<DaftarMenu/>} />
                 <Route path='/tambahMenu' element={<PrivateRoute><TambahMenu/></PrivateRoute>} />
-                <Route path='/ubahMenu' element={<PrivateRoute><UbahMenu/></PrivateRoute>} />
+                <Route path='/ubahMenu/:id' element={<PrivateRoute><UbahMenu/></PrivateRoute>} />
                 <Route path='/listMenu' element={<PrivateRoute><ListDaftarMenu/></PrivateRoute>} />
                 <Route path='/listBooking' element={<PrivateRoute><ListBookingPage/></PrivateRoute>} />
                 <Route path='/about' element={<About/>} />

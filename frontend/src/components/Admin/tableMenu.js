@@ -74,7 +74,7 @@ const TableMenu = () => {
                                                                     {item.harga}
                                                                 </td>
                                                                 <td>
-                                                                    <Link className="btn btn-sm btn-primary" to={"/ubahMenu"}><i className="bi bi-pen"></i></Link>
+                                                                    <Link className="btn btn-sm btn-primary" to={`/ubahMenu/${item.id}`}><i className="bi bi-pen"></i></Link>
                                                                     <button type="button" className="btn btn-sm btn-danger" onClick={(e) => { handleDelete(item.id)}}><i className="bi bi-trash-fill"></i></button>
                                                                 </td>
                                                             </tr>

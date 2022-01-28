@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { getAllBooking, createBooking, deleteBooking } from '../controllers/Booking.js';
 import { getAllJenis } from '../controllers/Jenis.js';
-import { getAllMenu, getAllMenuByJenis, createMenu, updateMenu, deleteMenu } from '../controllers/Menu.js';
+import { getAllMenu, getAllMenuByJenis, getOneMenuById, createMenu, updateMenu, deleteMenu } from '../controllers/Menu.js';
 import { getOrderId, createOrder, deleteOrder, getAllOrder, getOneOrderById, updateOrder } from '../controllers/Orders.js';
 
 import { getAllUser, getUserById } from '../controllers/Users.js'
@@ -11,29 +11,30 @@ import multer from "multer";
 
 const router = express.Router();
 
-router.use(bodyParser.urlencoded({ extended: false })); 
-router.use(bodyParser.json());
-router.use((req, res, next)=>{
-  res.setHeader('Access-Control-Allow-Origin', '*'); res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  if (req.method === "OPTIONS") {
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested- With, Content-Type, Accept, Authorization');
-    return res.status(200).json({}); 
-  }
-  next();
-});
+// router.use(bodyParser.urlencoded({ extended: true })); 
+// router.use(bodyParser.json());
+// router.use((req, res, next)=>{
+//   res.setHeader('Access-Control-Allow-Origin', '*'); res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//   if (req.method === "OPTIONS") {
+//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested- With, Content-Type, Accept, Authorization');
+//     return res.status(200).json({}); 
+//   }
+//   next();
+// });
 
 var storageFile = multer.diskStorage({
   //buat config file storage 
   destination : (req, file, cb)=>{
     //set folder sebagai destinasi upload
-    cb(null, './images') 
+    cb(null, './public/images') 
   },
   filename : (req, file, cb)=>{ 
-    //set nama file setelah diupload 
-    cb(null, Date.now() + file.originalname)
+    //set nama file setelah diupload
+    cb(null, file.originalname)
   } 
 });
-var upload = multer({storage : storageFile}) //buat object upload
+
+var upload = multer({storage : storageFile}).single('gambar'); //buat object upload
 
 
 // router.get('/', getAllUser)
@@ -57,9 +58,9 @@ router.get('/jenis', getAllJenis)
 
 // Menu
 router.get('/menu', getAllMenu)
-router.post('/menu', upload.single('fileImage'), createMenu)
-router.patch('/menu/:id', upload.single('fileImage'), updateMenu)
-// router.get('/menu/:id', getOneOrderById)
+router.post('/menu', upload, createMenu)
+router.patch('/menu/:id', upload, updateMenu)
+router.get('/menu/:id', getOneMenuById)
 router.get('/menu/:id', getAllMenuByJenis)
 router.delete('/menu/:id', deleteMenu)
 

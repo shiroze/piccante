@@ -5,9 +5,9 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 
-import Navbar from '../Admin/Navbar'
-import Sidebar from '../Admin/Sidebar'
-import Footer from '../Admin/Footer'
+import Navbar from './Navbar'
+import Sidebar from './Sidebar'
+import Footer from './Footer';
 
 const MenuForm = () => {
     const history = useNavigate();
@@ -17,36 +17,32 @@ const MenuForm = () => {
     }, []) // [] untuk agar dijalankan hanya saat unmounted
 
     const handleChange = (e) => {
+      // console.log("Key" + e.target.name);
       updateFormData({
         ...formData,
   
         // Trimming any whitespace
-        [e.target.name]: e.target.value.trim()
+        [e.target.name]: e.target.name === 'gambar' ? e.target.files[0] : e.target.value.trim()
       });
     };
 
-    const uploadFile = (e) => {
-      updateFormData({
-        ...formData,
-
-        gambar: e.target.files[0]
-      });
-    }
-
     const createMenu = async (e) => {
       e.preventDefault();
-
-      console.log(formData);
-
+      
+      const config = {
+          // headers: {
+          //   'content-type': 'multipart/form-data'
+          // }
+      };
       try {
-          await axios.post('http://localhost:5000/api/menu', {formData})
+          await axios.post('http://localhost:5000/api/menu', {formData}, config)
           .then(res => {
             console.log(res);
             // history('/listMenu');
           })
       } catch (error) {
           console.log('Gagal');
-          swal("Gagal", "Cek KOneksi", "error");
+          swal("Gagal", "Cek Koneksi", "error");
       }
     }
 
@@ -69,10 +65,13 @@ const MenuForm = () => {
                                       <div className="form-group">
                                         <label>Jenis Makanan</label>
                                         <select className="form-control" name="jenis" onChange={handleChange}>
+                                          <option value="0" disabled selected>Pilih Jenis</option>
                                           {jenisMenu.map((value, index) => {
-                                            return (
-                                              <option value={value.id} key={index}>{value.jenis}</option>
-                                            )
+                                            if (value.id !== 0) {
+                                              return (
+                                                <option value={value.id} key={index}>{value.jenis}</option>
+                                              )
+                                            }
                                           })}
                                         </select>
                                       </div>
@@ -90,7 +89,7 @@ const MenuForm = () => {
                                       </div>
                                       <div className="form-group">
                                         <label>Gambar</label>
-                                        <input type={"file"} accept="image/*" className="form-control" name="gambar" onChange={uploadFile} />
+                                        <input type={"file"} accept="image/*" className="form-control" name="gambar" onChange={handleChange} />
                                       </div>
                                       <button className="btn btn-success mt-3">
                                         Tambah Menu
@@ -106,7 +105,9 @@ const MenuForm = () => {
     )
 }
 
-const TambahMenu = () => {
+export default function TambahMenu(props) {
+  console.log(props);
+
   return (
       <>
         <div className='container-fluid' style={{ backgroundColor: "#ffe97f" }}>
@@ -121,4 +122,4 @@ const TambahMenu = () => {
   )
 }
 
-export default TambahMenu
+// export default TambahMenu

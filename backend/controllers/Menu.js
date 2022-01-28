@@ -1,4 +1,20 @@
+import multer from "multer";
 import Menu from "../models/menuModel.js";
+
+// var storageFile = multer.diskStorage({
+//   //buat config file storage 
+//   destination : (req, file, cb)=>{
+//     //set folder sebagai destinasi upload
+//     cb(null, './public/images') 
+//   },
+//   filename : (req, file, cb)=>{ 
+//     //set nama file setelah diupload 
+//     console.log("FileName", file);
+//     cb(null, file.originalname)
+//   } 
+// });
+
+// var upload = multer({storage : storageFile}).single('gambar'); //buat object upload
 
 export const getAllMenu = async (req, res) => {
     try {
@@ -26,22 +42,40 @@ export const getAllMenuByJenis = async (req, res) => {
     }
 }
 
+export const getOneMenuById = async (req, res) => {
+    try {
+        const menu = await Menu.findOne({
+          where: {
+            id: req.params.id
+          }
+        })
+        res.json(menu)
+    } catch (error) {
+        res.json({
+            message: error.message
+        })
+    }
+}
+
 export const createMenu = async (req, res) => {
     try {
-        res.json(req.file);
-        console.log(req.file);
+        // upload(req,res,(err) =>{
+        //     if(err) console.log(err);
 
-        // Menu.create({
-        //   jenis: req.body.formData.jenis,
-        //   nama: req.body.formData.nama,
-        //   deskripsi: req.body.formData.deskripsi,
-        //   harga: req.body.formData.harga,
-        //   gambar: req.file.filename,
+        //     console.log(req.file);
         // });
 
-        // res.json({
-        //     'message': 'Menu Created'
-        // })
+        Menu.create({
+          jenis: req.body.formData.jenis,
+          nama: req.body.formData.nama,
+          deskripsi: req.body.formData.deskripsi,
+          harga: req.body.formData.harga,
+          // gambar: req.file.filename,
+        });
+
+        res.json({
+            'message': 'Menu Created'
+        });
     } catch (error) {
         res.json({
             message: error.message
@@ -56,7 +90,7 @@ export const updateMenu = async (req, res) => {
       nama: req.body.formData.nama,
       deskripsi: req.body.formData.deskripsi,
       harga: req.body.formData.harga,
-      gambar: req.file.filename,
+      // gambar: req.file.filename,
     }, {
       where: {
           id: req.params.id

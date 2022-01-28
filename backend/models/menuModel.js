@@ -15,6 +15,9 @@ const Menu = db.define('menu', {
     },
     harga:{
         type: DataTypes.DOUBLE
+    },
+    gambar: {
+        type: DataTypes.STRING
     }
 }, {
     freezeTableName: true,
