@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { orderData } from './data-order'
+import { jenisMenu } from '../../data-menu';
 import axios from 'axios'
 
 const TableCRUD = () => {
@@ -59,7 +60,7 @@ const TableCRUD = () => {
                                                                     </a>
                                                                 </td>
                                                                 <td style={{ color: "#003048fa" }}>
-                                                                    {item.jenisMakanan}
+                                                                    {jenisMenu.find(element => element.jenis === item.jenisMakanan).jenis}
                                                                 </td>
                                                                 <td style={{ color: "#003048fa" }}>
                                                                     {item.namaMakanan}

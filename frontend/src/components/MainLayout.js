@@ -19,6 +19,8 @@ import CartPage from './Page/CartPage';
 import OrderPage from './Page/OrderPage';
 import SuccessPage from './Page/SuccessPage';
 import RegisterPage from './Page/RegisterPage';
+import TambahMenu from './Admin/TambahMenu';
+import UbahMenu from './Admin/UbahMenu';
 
 const PrivateRoute = ({children}) => {
     const [auth, setAuth] = useContext(LoginContext);
@@ -61,6 +63,8 @@ const MainLayout = () => {
                 <Route path="/admin" element={<PrivateRoute><AdminPage /></PrivateRoute>} />
                 <Route path="/login" element={<LoginRoute><LoginPage /></LoginRoute>} />
                 <Route path='/daftarmenu' element={<DaftarMenu/>} />
+                <Route path='/tambahMenu' element={<PrivateRoute><TambahMenu/></PrivateRoute>} />
+                <Route path='/ubahMenu' element={<PrivateRoute><UbahMenu/></PrivateRoute>} />
                 <Route path='/listMenu' element={<PrivateRoute><ListDaftarMenu/></PrivateRoute>} />
                 <Route path='/listBooking' element={<PrivateRoute><ListBookingPage/></PrivateRoute>} />
                 <Route path='/about' element={<About/>} />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { orderData } from './data-order'
 import { jenisMenu, daftarMenu } from '../../data-menu';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 const TableMenu = () => {
     const [menus, setMenus] = useState([])
@@ -33,8 +34,13 @@ const TableMenu = () => {
                         </div> */}
                         <div className="d-flex shadow flex-column mt-2 p-3" style={{ borderRadius: "10px", backgroundColor: "#fff" }}>
                             <div className="box box-info">
-                                <div className="box-header with-border">
-                                    <h3 className="box-title ml-1 text-info">Daftar Menu</h3>
+                                <div className="box-header with-border row">
+                                    <div className="col-lg-9">
+                                      <h3 className="box-title ml-1 text-info">Daftar Menu</h3>
+                                    </div>
+                                    <div className="col-lg-3 d-flex justify-content-end">
+                                      <Link className="btn btn-success" to={"/tambahMenu"}><i className="bi bi-plus"></i> Tambah Menu</Link>
+                                    </div>
                                 </div>
                                 <div className="box-body">
                                     <div className="table-responsive">
@@ -68,6 +74,7 @@ const TableMenu = () => {
                                                                     {item.harga}
                                                                 </td>
                                                                 <td>
+                                                                    <Link className="btn btn-sm btn-primary" to={"/ubahMenu"}><i className="bi bi-pen"></i></Link>
                                                                     <button type="button" className="btn btn-sm btn-danger" onClick={(e) => { handleDelete(item.id)}}><i className="bi bi-trash-fill"></i></button>
                                                                 </td>
                                                             </tr>

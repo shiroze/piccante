@@ -8,6 +8,10 @@ a {
   text-decoration: none!important;
 }
 
+textarea {
+  resize: none;
+}
+
 .main-body {
   background-color: #feca1fff;
   padding-top: 10px;
