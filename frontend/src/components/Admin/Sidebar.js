@@ -60,6 +60,7 @@ const Sidebar = () => {
                     {menu ?
                         <div id="Menu">
                             <a href="/listMenu" className="list-group-item text-decoration-none" style={{ color: "#003048fa" }}> Daftar Menu</a>
+                            <a href="/listBooking" className="list-group-item text-decoration-none" style={{ color: "#003048fa" }}> Daftar Booking</a>
                         </div> : null
                     }
 
