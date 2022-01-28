@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { jenisMenu, daftarMenu } from '../data-menu';
 import { useNavigate } from 'react-router-dom';
 import { withCookies, useCookies } from 'react-cookie';
 import swal from 'sweetalert';
@@ -107,7 +108,7 @@ const TableCRUD = (props) => {
                                   return (
                                     <tr key={index}>
                                       <td>
-                                        {item.jenis}
+                                        {jenisMenu.find(element => element.id === item.jenis).jenis}
                                         <input type="hidden" name="jenis[]" value={item.jenis} />
                                       </td>
                                       <td>
