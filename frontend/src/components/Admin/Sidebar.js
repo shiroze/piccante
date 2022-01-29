@@ -40,7 +40,7 @@ const Sidebar = () => {
             <div className="sidebar">
                 <ul className="sidebar-nav list-group">
                     <div className="sidebar-header d-flex align-item-center">
-                        <img src={"img/admin.png"} width="80" height="80" className="rounded-circle mt-3" alt='logo' />
+                        <img src={"http://localhost:5000/images/admin.png"} width="80" height="80" className="rounded-circle mt-3" alt='logo' />
                         <div className="title ml-3">
                             <h5 className="mt-4" style={{ color: "#003048fa" }}>BlazingAural</h5>
                             <i className="bi bi-circle-fill text-success"></i><span className="ml-2" style={{ color: "#003048fa" }}>Online</span>
